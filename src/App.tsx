@@ -1,6 +1,13 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import logo from './logo.svg';
 import './App.css';
+
+const id = uuidv4();
+
+const testWorker = new SharedWorker('/workers/test.js', { type: 'module' });
+
+testWorker.port.start();
 
 function App() {
   return (
