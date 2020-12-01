@@ -1,5 +1,5 @@
 declare module "worker-loader!*" {
-    class WebpackWorker extends SharedWorker {
+    class WebpackWorker extends Worker {
         constructor();
     }
 

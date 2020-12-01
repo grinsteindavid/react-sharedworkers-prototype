@@ -21,12 +21,30 @@
 //     port.start();
 // }
 
-import { expose } from 'comlink';
+// import { expose } from 'comlink';
 
 
-function takeALongTimeToDoSomething() {
-    console.log('hello world')
-}
+// function takeALongTimeToDoSomething() {
+//     console.log('hello world')
+// }
 
-expose({ takeALongTimeToDoSomething });
+// export default expose({ takeALongTimeToDoSomething });
 
+import { v4 as uuidv4 } from 'uuid';
+import * as Comlink from 'comlink';
+
+const id = uuidv4();
+
+const obj = {
+    channel: new BroadcastChannel("TestWorker"),
+    counter: 0,
+    id,
+    inc() {
+        this.counter++;
+        this.channel.postMessage(this.counter)
+    }
+};
+
+Comlink.expose(obj);
+
+export type Obj = typeof obj;

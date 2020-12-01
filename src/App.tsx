@@ -5,10 +5,26 @@ import './App.css';
 
 import { wrap } from 'comlink';
 
-const testworker = wrap(new Worker("../workers/test.js"));
-
 /* eslint-disable import/no-webpack-loader-syntax */
-// import TestWorker from 'worker-loader!./workers/test';
+import TestWorker from 'worker-loader!./workers/test';
+import { Obj } from './workers/test'
+
+const channel = new BroadcastChannel("TestWorker")
+
+channel.addEventListener('message', (ev: MessageEvent<any>) => {
+  console.log({ ev })
+})
+
+async function init() {
+  const worker = new TestWorker();
+  const testworker = wrap<Obj>(worker);
+  await testworker.inc();
+  const data = await testworker.counter
+  const id = await testworker.id
+
+  console.log({ data, id })
+}
+init();
 
 // const id = uuidv4();
 
