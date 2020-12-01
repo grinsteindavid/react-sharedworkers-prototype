@@ -3,40 +3,25 @@ import { v4 as uuidv4 } from 'uuid';
 import logo from './logo.svg';
 import './App.css';
 
-import { wrap } from 'comlink';
-
 /* eslint-disable import/no-webpack-loader-syntax */
-import TestWorker from 'worker-loader!./workers/test';
-import { Obj } from './workers/test'
+import TestWorker from 'worker-loader!./workers/test.worker';
+
+const worker = new TestWorker();
 
 const channel = new BroadcastChannel("TestWorker")
 
 channel.addEventListener('message', (ev: MessageEvent<any>) => {
-  console.log({ ev })
+  console.log({ channelOuput: ev })
 })
 
-async function init() {
-  const worker = new TestWorker();
-  const testworker = wrap<Obj>(worker);
-  await testworker.inc();
-  const data = await testworker.counter
-  const id = await testworker.id
+worker.addEventListener('message', (ev: MessageEvent<any>) => {
+  console.log({ workerOutput: ev })
+})
 
-  console.log({ data, id })
-}
-init();
+channel.postMessage({ channelPostMessage: uuidv4() })
 
-// const id = uuidv4();
 
-// const testWorker = new SharedWorker('../workers/test.ts', { name: 'test-worker', type: 'module' });
 
-// const data = new TestWorker();
-
-// console.log({ TestWorker, data })
-
-// (TestWorker as unknown as SharedWorker).port.start();
-
-// testworker()
 
 function App() {
   return (
