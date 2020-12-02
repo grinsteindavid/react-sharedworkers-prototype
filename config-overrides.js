@@ -5,15 +5,10 @@
 module.exports = {
     webpack: function (config, env) {
         config.module.rules.push({
-            test: /\.worker\.(c|m)?ts$/i,
-            loader: 'worker-loader',
+            test: /\.worker\.(c|m)?js$/i,
+            loader: "worker-loader",
             options: {
-                worker: {
-                    type: 'SharedWorker',
-                    options: {
-                        type: 'module'
-                    },
-                },
+                worker: "SharedWorker",
             },
         })
 
