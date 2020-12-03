@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TestWorker } from './workers/index';
 
+// DO NOT CREATE THESE INSTANCES INSIDE THE HOOK FUNCTION
 const worker = new TestWorker();
 const channel = new BroadcastChannel("TestWorker");
 
