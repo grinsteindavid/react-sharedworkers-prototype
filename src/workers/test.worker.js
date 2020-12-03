@@ -36,15 +36,9 @@ self.addEventListener("connect", function (e) {
     port.addEventListener("message", function (e) {
         broadcastChannel.postMessage({
             from: peer.connectionId,
+            data: e.data,
             type: 'PORT_MESSAGE_TO_BROADCAST'
         })
-
-        // peers.filter(function (peer) {
-        //     return peer.connectionId !== e.data.port;
-        // }).forEach(function (peer) {
-        //     peer.port.postMessage(e.data);
-        // });
-
     });
 
     port.start();

@@ -12,13 +12,17 @@ worker.port.addEventListener('message', (event) => {
   console.log({ portData: event.data })
 });
 
-worker.port.start()
+worker.port.start();
 
-const channel = new BroadcastChannel("TestWorker")
+const channel = new BroadcastChannel("TestWorker");
 
 channel.addEventListener('message', (ev) => {
-  console.log({ channelData: ev.data })
-})
+  console.log({ channelData: ev.data });
+});
+
+setInterval(() => {
+  worker.port.postMessage({ data: 'hello world' })
+}, 10000)
 
 
 
