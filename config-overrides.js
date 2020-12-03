@@ -1,7 +1,3 @@
-// const {
-//     override,
-// } = require("customize-cra");
-
 module.exports = {
     webpack: function (config, env) {
         config.module.rules.push({
@@ -12,13 +8,6 @@ module.exports = {
             },
         })
 
-        console.log({ rules: config.module.rules, env })
-
         return config;
     }
 }
-// module.exports = function override(config, env) {
-
-
-//     return config
-// }

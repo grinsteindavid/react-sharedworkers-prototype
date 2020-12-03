@@ -2,27 +2,23 @@ import React from 'react';
 // import { v4 as uuidv4 } from 'uuid';
 import logo from './logo.svg';
 import './App.css';
+/* eslint-disable import/no-webpack-loader-syntax */
+// import TestWorker from 'worker-loader!./workers/test.worker';
 import { TestWorker } from './workers/index'
 
 const worker: SharedWorker = new TestWorker();
+
 worker.port.addEventListener('message', (event) => {
-  console.log(event)
+  console.log({ portData: event.data })
 });
 
 worker.port.start()
 
-console.log({ port: worker.port })
+const channel = new BroadcastChannel("TestWorker")
 
-/* eslint-disable import/no-webpack-loader-syntax */
-// import TestWorker from 'worker-loader!./workers/test.worker';
-
-// import TestWorker from './workers/test.worker';
-
-// const channel = new BroadcastChannel("TestWorker")
-
-// channel.addEventListener('message', (ev) => {
-//   console.log({ ev })
-// })
+channel.addEventListener('message', (ev) => {
+  console.log({ channelData: ev.data })
+})
 
 
 
