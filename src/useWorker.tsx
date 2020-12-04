@@ -19,10 +19,9 @@ export default function useWorker() {
 
     useEffect(() => {
         worker.port.addEventListener('message', workerOnMessage);
+        worker.port.start();
 
         channel.addEventListener('message', channelOnMessage);
-
-        worker.port.start();
 
         const intervalID = setInterval(() => {
             worker.port.postMessage({ data: 'hello world' });
