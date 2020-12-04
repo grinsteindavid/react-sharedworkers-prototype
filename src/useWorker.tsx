@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { TestWorker } from './workers/index';
+import { TestSharedWorker } from './workers/index';
 
 // DO NOT CREATE THESE INSTANCES INSIDE THE HOOK FUNCTION
-const worker = new TestWorker();
+const worker = new TestSharedWorker();
 const channel = new BroadcastChannel("TestWorker");
 
 export default function useWorker() {
@@ -41,5 +41,6 @@ export default function useWorker() {
     return { workerState, channelState }
 }
 
+// WORKER LAODER - INLINE IMPORT
 /* eslint-disable import/no-webpack-loader-syntax */
 // import TestWorker from 'worker-loader!./workers/test.worker';

@@ -1,1 +1,1 @@
-export { default as TestWorker } from './test.worker';
+export { default as TestSharedWorker } from './test.sharedworker';
